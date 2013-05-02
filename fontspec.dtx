@@ -6580,6 +6580,7 @@ This work consists of this file fontspec.dtx
   \@ifpackageloaded{MinionPro}{\bool_set_false:N \g_fontspec_math_bool}{}
   \@ifpackageloaded{unicode-math}{\bool_set_false:N \g_fontspec_math_bool}{}
   \@ifpackageloaded{breqn}{\bool_set_false:N \g_fontspec_math_bool}{}
+	\@ifpackageloaded{tex4ht}{\bool_set_false:N \g_fontspec_math_bool}{}
   \bool_if:NT \g_fontspec_math_bool
    {
     \fontspec_info:n {setup-math}
