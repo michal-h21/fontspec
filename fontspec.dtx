@@ -2978,7 +2978,9 @@ This work consists of this file fontspec.dtx
 % can be used as the defaults. See the |euenc| collection of files for how this is implemented.
 %    \begin{macrocode}
 %<xetexx>\tl_set:Nn \g_fontspec_encoding_tl {EU1}
+%<xetexx>\@ifpackageloaded{tex4ht}{\tl_set:Nn \g_fontspec_encoding_tl {T1}}{}
 %<luatex>\tl_set:Nn \g_fontspec_encoding_tl {EU2}
+%<luatex>\@ifpackageloaded{tex4ht}{\tl_set:Nn \g_fontspec_encoding_tl {T1}}{}
 \tl_set:Nn \rmdefault {lmr}
 \tl_set:Nn \sfdefault {lmss}
 \tl_set:Nn \ttdefault {lmtt}
