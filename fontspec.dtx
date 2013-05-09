@@ -2959,6 +2959,11 @@ This work consists of this file fontspec.dtx
 \xetex_if_engine:T  { \RequirePackage{fontspec-xetex}  \endinput }
 %    \end{macrocode}
 %
+% \subsection{TeX4ht handling}
+%    \begin{macrocode}
+\@ifpackageloaded{tex4ht}{\RequirePackage{fontspec-4ht}}{}
+%    \end{macrocode}
+%
 %    \begin{macrocode}
 %</fontspec&!xetexx&!luatex>
 %    \end{macrocode}
@@ -6590,7 +6595,6 @@ This work consists of this file fontspec.dtx
 \AtBeginDocument{\fontspec_maybe_setup_maths:}
 %    \end{macrocode}
 % \end{macro}
-%
 %
 % \subsection{Finishing up}
 % Now we just want to set up loading the \texttt{.cfg} file, if it exists.

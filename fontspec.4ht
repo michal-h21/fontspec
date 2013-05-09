@@ -1,16 +1,15 @@
 \RequirePackage{expl3}
 \ExplSyntaxOn
-\tl_new:N \pokus
+%\tl_new:N \pokus
 \def\mytypeout#1{\typeout{fontspec-4ht:#1}}
 \cs_set_eq:NN \fht_fsf:Nnn \fontspec_set_family:Nnn  
-\cs_gset:Nn \fontspec_set_family:Nnn {\mytypeout{Fontspec set family}
+%\cs_gset:Nn \fontspec_set_family:Nnn {\mytypeout{Fontspec set family}
 %\fht_fsf:Nnn #1 {#2} {#3}
-\tl_set:Nn \pokus {#2}
-
-\mytypeout{Script: \tl_use:N \pokus}
-\tl_set:Nn \pokus {#3}
-\mytypeout{Language: \tl_use:N \pokus}
-}
+%\tl_set:Nn \pokus {#2}
+%\mytypeout{Script: \tl_use:N \pokus}
+%\tl_set:Nn \pokus {#3}
+%\mytypeout{Language: \tl_use:N \pokus}
+%}
 
 
 %\xetex_or_luatex:nnn {}{}{\RequirePackage[utf8]{luainputenc}}
@@ -31,8 +30,8 @@
 \RequirePackage{lmodern}
 \RequirePackage{newunicodechar}
 \newunicodechar{ů}{\HChar{197}\HChar{175}}
-\Hinput{fontspec}
-\endinput
+%\Hinput{fontspec}
+%\endinput
 %\fontencoding{T1}
 %\fontfamily{lmr}
 %\selectfont
