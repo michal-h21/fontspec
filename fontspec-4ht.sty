@@ -14,7 +14,7 @@
 	\cs_if_free:cTF {#1} {
 		\cs_new:cpn {#1} {defined}
 		\IfFileExists{#1}{\input #1}{
-			\PackageWarning{fontspec-4ht}{Unicode\ block\ file\ #1\ doesn't\ exist}
+			\PackageWarning{fontspec-4ht}{Unicode block file #1 doesn't exist}
 		}
 	}{}
 }
