@@ -1,4 +1,8 @@
 #!/usr/bin/env texlua
+-- convert utf8 table from http://www.utf8-chartable.de/unicode-utf8-table.pl
+-- to \newunicodechar
+-- on the webpage, select unicode codepoint, character and and UTF-8 (dec)
+
 function mysplit(inputstr, sep)
         if sep == nil then
                 sep = "%s"
