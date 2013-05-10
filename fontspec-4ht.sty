@@ -1,4 +1,7 @@
-\ProvidesPackage{fontspec-4ht.sty}
+\ProvidesPackage{fontspec-4ht}
+\RequirePackage[utf8]{luainputenc}
+\RequirePackage{lmodern}
+\RequirePackage{newunicodechar}
 \ExplSyntaxOn
 \tl_new:N \pokus
 \tl_new:N \fht_lang
@@ -6,36 +9,39 @@
 \tl_new:N \fht_fontname
 
 \def\mytypeout#1{\typeout{fontspec-4ht:#1}}
+
+\cs_new:Nn \fht_call_unicode_block:n  {
+	\cs_if_free:cTF {#1} {
+		\cs_new:cpn {#1} {defined}
+		\IfFileExists{#1}{\input #1}{
+			\PackageWarning{fontspec-4ht}{Unicode\ block\ file\ #1\ doesn't\ exist}
+		}
+	}{}
+}
 \keys_define:nn { fht-font }{
-	%Script .tl_gset:N = \fht_script,
 	Script .code:n = {
-		\tl_set:Nn \fht_script { #1 }
-		\tl_if_in:NnTF \fht_script {DFLT}{\tl_set:Nn \fht_script {Latin}}{}
+		\tl_to_lowercase:n {\tl_set:Nn \fht_script {#1}}% \tl_to_lowercase:n {#1} 
+		\tl_if_in:NnTF \fht_script {dflt}{\tl_gset:Nn \fht_script {latin}}{}
+		\fht_call_unicode_block:n {utf-\fht_script -4ht.tex}
 	},
 	Script .initial:n = DFLT,
-%}
-%\keys_define:nn {fht-font} {
   Language .tl_gset:N =  \fht_lang, 
 	Language .initial:n  = DFLT,
-%}default
-%\keys_define:nn {fht-font}{
 	unknown .code:n = {},
 }
 
-\cs_set_eq:NN \fht_fsf:Nnn \fontspec_set_family:Nnn  
-\cs_gset:Nn \fontspec_set_family:Nnn {\mytypeout{Fontspec set family}
-%\fht_fsf:Nnn #1 {#2} {#3}
-%\tl_set:Nn \pokus {#2}
-\keys_set:nn { fht-font } {#2}
-\mytypeout{Script: \tl_use:N \fht_script}
-%\tl_set:Nn \pokus {#3}
-\mytypeout{Language: \tl_use:N \fht_lang}
+% We must redefine macro \fontspec_set_family 
+% so it doesn't include opentype fonts
+
+%\cs_set_eq:NN \fht_fsf:Nnn \fontspec_set_family:Nnn  
+\cs_gset:Nn \fontspec_set_family:Nnn {
+	\mytypeout{Fontspec set family}
+	\keys_set:nn { fht-font } {#2}
+	\mytypeout{Script: \tl_use:N \fht_script}
+	\mytypeout{Language: \tl_use:N \fht_lang}
 }
 
 \ExplSyntaxOff
-\RequirePackage[utf8]{luainputenc}
-\RequirePackage{lmodern}
-\RequirePackage{newunicodechar}
-\newunicodechar{ů}{\HChar{197}\HChar{175}}
+%\newunicodechar{ů}{\HChar{197}\HChar{175}}
 %\Hinput{fontspec}
 \endinput
