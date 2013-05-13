@@ -13,7 +13,7 @@
 \cs_new:Nn \fht_call_unicode_block:n  {
 	\cs_if_free:cTF {#1} {
 		\cs_new:cpn {#1} {defined}
-		\IfFileExists{#1}{\input #1}{
+		\IfFileExists{#1}{\mytypeout{Loading fontspec4ht unicode declarations for script #1}\input #1}{
 			\PackageWarning{fontspec-4ht}{Unicode block file #1 doesn't exist}
 		}
 	}{}
@@ -35,10 +35,24 @@
 
 %\cs_set_eq:NN \fht_fsf:Nnn \fontspec_set_family:Nnn  
 \cs_gset:Nn \fontspec_set_family:Nnn {
+	\fontspec_select:nn{#2}{#3}
+}
+% We need to hack fontspec_select so open type fonts are not loaded
+\cs_gset:Nn \fontspec_select:nn{
 	\mytypeout{Fontspec set family}
-	\keys_set:nn { fht-font } {#2}
+	\keys_set:nn { fht-font } {#1}
 	\mytypeout{Script: \tl_use:N \fht_script}
 	\mytypeout{Language: \tl_use:N \fht_lang}
+	\tl_gset:Nn \l_fontspec_family_tl {tex4htfamily}
+}
+
+% Hack newfontfamily so it declares empty font swithing command
+% If we don't do this, tex4ht will do evil things
+\RenewDocumentCommand \newfontfamily { m O{} m } {
+	\fontspec_select:nn{#2}{#3}
+	\use:x {
+		\exp_not:N \DeclareRobustCommand \exp_not:N #1 {}
+	}
 }
 
 \ExplSyntaxOff
