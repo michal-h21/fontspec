@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">  
+<!--http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd-->  
+<html xmlns="http://www.w3.org/1999/xhtml"  
+> 
+<head><title>TeX4ht and fontspec sample</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)" /> 
+<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)" /> 
+<!-- xhtml,charset=utf-8 --> 
+<meta name="src" content="fontspec-4ht.tex" /> 
+<meta name="date" content="2013-05-14 15:51:00" /> 
+<link rel="stylesheet" type="text/css" href="fontspec-4ht.css" /> 
+</head><body 
+>
+<div class="maketitle">
+
+
+
+<h2 class="titleHead">TeX4ht and fontspec sample</h2>
+<div class="author" ><span 
+class="ec-lmr-12">Michal Hoftich</span></div><br />
+<div class="date" ><span 
+class="ec-lmr-12">May 14, 2013</span></div>
+</div>   
+<h3 class="sectionHead"><span class="titlemark">1   </span> <a 
+ id="x1-10001"></a>introduction</h3>
+<!--l. 30--><p class="noindent" >This is sample document which uses <span 
+class="ec-lmtt-10">fontspec</span>, converted to <span class="obeylines-h"><span class="verb"><span 
+class="ec-lmtt-10">html</span></span></span> usint <span class="TEX">T<span 
+class="E">E</span>X</span>4ht.
+This document can be converted either with <span class="obeylines-h"><span class="verb"><span 
+class="ec-lmtt-10">htxelatex</span></span></span> or <span class="obeylines-h"><span class="verb"><span 
+class="ec-lmtt-10">htlualatex</span></span></span>.
+</p><!--l. 34--><p class="indent" >   Normally, <span class="TEX">T<span 
+class="E">E</span>X</span>4ht doesn&#x2019;t support opentype fonts used with <span class="obeylines-h"><span class="verb"><span 
+class="ec-lmtt-10">fontspec</span></span></span> because it
+depends on <span class="obeylines-h"><span class="verb"><span 
+class="ec-lmtt-10">tfm</span></span></span> ﬁles which are used with traditional <span class="TEX">T<span 
+class="E">E</span>X</span>fonts.This package tries to
+patch <span class="obeylines-h"><span class="verb"><span 
+class="ec-lmtt-10">fontspec</span></span></span> to not load opentype fonts. Better way would be to add support for
+opentype fonts to <span class="TEX">T<span 
+class="E">E</span>X</span>4ht binary, but it probably won&#x2019;t happend in near future, so I
+tried if this way is possible.
+</p><!--l. 42--><p class="indent" >   Because we suppress font processing, we must take care of input and output
+encoding. For utf8 support, we load conﬁguration ﬁles depending on script attributes
+of font declaring commands. Default loaded script is <span 
+class="ec-lmri-10">Latin</span>, which should support all
+diacritics used in languages with latin script:
+</p><!--l. 49--><p class="indent" >   Příliš žluťoučký kůň úpěl ďábelské ódy
+</p><!--l. 52--><p class="indent" >   Other supported script is <span 
+class="ec-lmri-10">Greek</span>:
+</p><!--l. 55--><p class="indent" >   ελληνική γλώσσα
+</p><!--l. 57--><p class="indent" >   All fonts with diﬀerent scripts must be deﬁned in preamble
+
+</p>   
+<div class="verbatim" id="verbatim-1">
+\newfontfamily\greekfont[Script=Greek]{Gentium}
+ <br />\begin{document}
+ <br />Some text
+ <br />...
+ <br />\greekfont
+ <br />ελληνική γλώσσα
+</div>
+<!--l. 66--><p class="nopar" >
+</p>   
+<h3 class="sectionHead"><span class="titlemark">2   </span> <a 
+ id="x1-20002"></a>Instalation</h3>
+<!--l. 69--><p class="noindent" >This is just proof of concept now, so it may not be good idea to install this
+package somewhere to your local texmf tree. Just run these commands in some
+directory
+
+</p>   
+<div class="verbatim" id="verbatim-2">
+git clone git@github.com:michal-h21/fontspec.git
+ <br />cd fontspec
+ <br />pdftex fontspec.dtx
+</div>
+<!--l. 77--><p class="nopar" >
+</p><!--l. 79--><p class="noindent" >
+</p>   
+<h3 class="sectionHead"><span class="titlemark">3   </span> <a 
+ id="x1-30003"></a>Unicode support</h3>
+<!--l. 81--><p class="noindent" >For new script support, go to page <span class="obeylines-h"><span class="verb"><span 
+class="ec-lmtt-10">http://www.utf8-chartable.de/unicode-utf8-table.pl</span></span></span>,
+select unicode block with the script in interest, select decimal display format for utf8
+encoding and copy the resulting table to some ﬁle. Then run included script
+<span class="obeylines-h"><span class="verb"><span 
+class="ec-lmtt-10">f4ht-utftable.lua</span></span></span>:
+
+</p>   
+<div class="verbatim" id="verbatim-3">
+texlua f4ht-utftable.lua &#x003C; filewithtable &#x003E; utf-scriptname-4ht.tex
+</div>
+<!--l. 90--><p class="nopar" >
+</p><!--l. 92--><p class="indent" >   See ﬁle <span class="obeylines-h"><span class="verb"><span 
+class="ec-lmtt-10">utf-latin-4ht.tsv</span></span></span> for example of input ﬁle and ﬁle <span class="obeylines-h"><span class="verb"><span 
+class="ec-lmtt-10">utf-latin-4ht.tex</span></span></span>
+for resulting output ﬁle.
+</p>   
+ 
+</body></html> 
+
+
+
