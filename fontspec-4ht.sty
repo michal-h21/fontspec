@@ -1,5 +1,8 @@
 \ProvidesPackage{fontspec-4ht}
-\RequirePackage[utf8]{luainputenc}
+\RequirePackage{ifluatex}
+\ifluatex
+%  \RequirePackage[utf8]{luainputenc}
+\fi
 \RequirePackage{lmodern}
 \RequirePackage{newunicodechar}
 \ExplSyntaxOn
@@ -56,6 +59,4 @@
 }
 
 \ExplSyntaxOff
-%\newunicodechar{ů}{\HChar{197}\HChar{175}}
-%\Hinput{fontspec}
 \endinput
