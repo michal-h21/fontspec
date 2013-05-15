@@ -18,8 +18,11 @@ for line in io.lines() do
 	local t =  mysplit(line,"\t") 
 	if t[3] then
 		local hchars = mysplit(t[3]," ")
-		local h = string.format('\\HChar{%s}\\HChar{%s}',hchars[1],hchars[2])
-	  local msg = t[2] and (string.format("\\newunicodechar{%s}{%s}",t[2],h)) or ''
+		local h = {} -- string.format('\\HChar{%s}\\HChar{%s}',hchars[1],hchars[2])
+		for _,ch in ipairs(hchars) do
+			table.insert(h, '\\HChar{'..ch..'}')
+		end
+	  local msg = t[2] and (string.format("\\newunicodechar{%s}{%s}",t[2],table.concat(h))) or ''
   	io.write(msg.."\n")
 	end
 end
