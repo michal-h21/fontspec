@@ -26,7 +26,8 @@ local hcode_enc = function(hchars)
 end
 local entity_enc = function(hchars,enc)
 	local result = unicode.utf8.byte(enc)
-	return string.format('\\entity{%d}',result)
+	--for some strange reason, HCode didn't print semicolon
+	return string.format('\\HCode{&\\hashchar%d;;}',result) 
 end
 
 if arg[1] == "-e" then 
@@ -44,3 +45,4 @@ for line in io.lines() do
   	io.write(msg.."\n")
 	end
 end
+
