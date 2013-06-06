@@ -66,7 +66,7 @@ This work consists of this file fontspec.dtx
 %<fontspec&luatex>\ProvidesPackage{fontspec-luatex}
 %<patches>\ProvidesPackage{fontspec-patches}
 %<*fontspec|patches>
-  [2013/03/16 v2.3a Font selection for XeLaTeX and LuaLaTeX]
+  [2013/05/20 v2.3c Font selection for XeLaTeX and LuaLaTeX]
 %</fontspec|patches>
 %
 %<*driver>
@@ -112,8 +112,7 @@ This work consists of this file fontspec.dtx
 % \LuaTeX's features including font support; a kernel of his work in this area
 % has been extracted to be useful for other \TeX\ macro systems as well, and
 % this has enabled \pkg{fontspec} to be adapted for \LaTeX\ when run with the
-% \LuaTeX\ engine. Elie Roux and Khaled Hosny have been instrumental and
-% invaluable with this development work.
+% \LuaTeX\ engine.
 %
 % \section{Introduction}
 %
@@ -199,7 +198,7 @@ This work consists of this file fontspec.dtx
 % \paragraph{\LuaTeX\ users only}
 % In order to load fonts by their name rather than by their filename (\eg,
 % `Latin Modern Roman' instead of `ec-lmr10'), you may need to run the script
-% \texttt{mkluatexfontdb}, which is distributed with the \pkg{luaotfload}
+% \texttt{luaotfload-tool}, which is distributed with the \pkg{luaotfload}
 % package. Note that if you do not execute this script beforehand, the first
 % time you attempt to typeset the process will pause for (up to) several
 % minutes. (But only the first time.)
@@ -209,10 +208,9 @@ This work consists of this file fontspec.dtx
 % \emph{The \pkg{babel} package is not really supported!} Especially Vietnamese,
 % Greek, and Hebrew at least might not work correctly, as far as I can tell.
 % There's a better chance with Cyrillic and Latin-based languages,
-% however---\pkg{fontspec} ensures at least that fonts should load correctly,
-% but hyphenation and other matters aren't guaranteed. Under \XeTeX, the
-% \pkg{polyglossia} package is recommended instead as a modern replacement for
-% \pkg{babel}. For \LuaTeX, the situation is still unresolved.
+% however---\pkg{fontspec} ensures at least that fonts should load correctly. 
+% The \pkg{polyglossia} package is recommended instead as a modern replacement 
+% for \pkg{babel}.
 %
 %
 %
@@ -285,7 +283,9 @@ This work consists of this file fontspec.dtx
 %
 % \subsection{By font name}
 %
-% Fonts known to \LuaTeX\ or \XeTeX\ may be loaded by their standard names as you'd speak them out loud, such as \emph{Times New Roman} or \emph{Adobe Garamond}.
+% Fonts known to \LuaTeX\ or \XeTeX\ may be loaded by their standard names as 
+% you'd speak them out loud, such as \emph{Times New Roman} or 
+% \emph{Adobe Garamond}.
 % `Known to' in this case generally means `exists in a standard fonts location'
 % such as |~/Library/Fonts| on \MacOSX, or |C:\Windows\Fonts| on Windows.
 %
@@ -307,7 +307,7 @@ This work consists of this file fontspec.dtx
 % When you have a very large collection of fonts, you will sometimes not
 % wish to have them all installed in your system's font directories.
 % In this case, it is more convenient to load them from a different location on your disk.
-% This technique is also necessary in \XeTeX\ when loading OpenType fonts that are present within your \TeX\ distribution, such as \path{/usr/local/texlive/2010/texmf-dist/fonts/opentype/public}.
+% This technique is also necessary in \XeTeX\ when loading OpenType fonts that are present within your \TeX\ distribution, such as \path{/usr/local/texlive/2013/texmf-dist/fonts/opentype/public}.
 % Fonts in such locations are visible to \XeTeX\ but cannot be loaded by font name, only file name; \LuaTeX\ does not have this restriction.
 %
 % When selecting fonts by file name, any font that can be found in the default
@@ -2477,7 +2477,7 @@ This work consists of this file fontspec.dtx
 %
 % \begin{macro}{\fontspec_if_opentype:TF}
 % Test whether the currently selected font is an OpenType font.
-% Always true for LuaTeX fonts.
+% Always true for \LuaTeX{} fonts.
 % \end{macro}
 %
 % \begin{macro}{\fontspec_if_feature:nTF}
@@ -2645,7 +2645,7 @@ This work consists of this file fontspec.dtx
  {
   \luatex_if_engine:TF
    {
-    \RequirePackage{luaotfload}
+    \RequirePackage{luaotfload}[2013/05/20]
     \RequireLuaModule{fontspec}
    }
    {
@@ -4576,9 +4576,7 @@ This work consists of this file fontspec.dtx
  {
   \bool_set_false:N \l_fontspec_icu_bool
   \bool_set_true:N \l_fontspec_firsttime_bool
-  \cs_set:Npn \fontspec_namewrap:n ##1
-%<xetexx>    { ##1 }
-%<luatex>    { name:##1 }
+  \cs_set:Npn \fontspec_namewrap:n ##1 { ##1 }
   \tl_clear:N \l_fontspec_optical_size_tl
   \tl_clear:N \l_fontspec_renderer_tl
   \tl_clear:N \l_fontspec_defined_shapes_tl
@@ -4706,8 +4704,7 @@ This work consists of this file fontspec.dtx
   \fontspec_check_ot_feat:nTF {#1}
    {
     \fontspec_update_fontid:n {#1=#2}
-%<xetexx>      \fontspec_update_featstr:n { #1 = #2 }
-%<luatex>      \fontspec_update_featstr:n { #1 = \int_eval:n {#2+1} }
+    \fontspec_update_featstr:n { #1 = #2 }
    }
    { \fontspec_warning:nx {icu-feature-not-exist-in-font} {#1} }
  }
@@ -4993,9 +4990,7 @@ This work consists of this file fontspec.dtx
   \bool_set_true:N \l_fontspec_nobf_bool
   \bool_set_true:N \l_fontspec_noit_bool
   \bool_set_true:N \l_fontspec_external_bool
-  \cs_gset:Npn \fontspec_namewrap:n ##1
-%<xetexx>   {     [ #1 ##1 ] }
-%<luatex>   { file: #1 ##1   }
+  \cs_gset:Npn \fontspec_namewrap:n ##1 { [ #1 ##1 ] }
 %<*xetexx>
   \keys_set:nn {fontspec-renderer} {Renderer=ICU}
 %</xetexx>
@@ -5842,9 +5837,7 @@ This work consists of this file fontspec.dtx
 %    \end{macrocode}
 %
 %    \begin{macrocode}
-\cs_set:Nn \fontspec_salt:n
-%<xetexx>  { +salt = #1 }
-%<luatex>  { +salt = \int_eval:n {#1+1} }
+\cs_set:Nn \fontspec_salt:n { +salt = #1 }
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -5894,14 +5887,12 @@ This work consists of this file fontspec.dtx
  {
   ScriptStyle .code:n =
    {
-%<xetexx>    \fontspec_update_fontid:n {+ssty=0}
-%<luatex>    \fontspec_update_fontid:n {+ssty=1}
+    \fontspec_update_fontid:n {+ssty=0}
     \fontspec_update_featstr:n{+sstyle}
    },
   ScriptScriptStyle .code:n =
    {
-%<xetexx>    \fontspec_update_fontid:n {+ssty=1}
-%<luatex>    \fontspec_update_fontid:n {+ssty=2}
+    \fontspec_update_fontid:n {+ssty=1}
     \fontspec_update_featstr:n{+ssstyle}
    }
  }
@@ -5974,9 +5965,7 @@ This work consists of this file fontspec.dtx
   Annotation .default:n = {0} ,
   Annotation / unknown .code:n =
    {
-    \fontspec_make_feature:nnx {}{}
-%<xetexx>    { +nalt=#1 }
-%<luatex>    { +nalt= \int_eval:n {#1+1} }
+    \fontspec_make_feature:nnx {}{}{ +nalt=#1 }
    }
  }
 %    \end{macrocode}
@@ -6643,14 +6632,15 @@ This work consists of this file fontspec.dtx
 %    \end{macrocode}
 % First we define some metadata.
 %    \begin{macrocode}
-fontspec          = { }
+fontspec          = fontspec or {}
+local fontspec    = fontspec
 fontspec.module   = {
     name          = "fontspec",
-    version       = 2.0,
-    date          = "2009/12/04",
+    version       = "2.3c",
+    date          = "2013/05/20",
     description   = "Advanced font selection for LuaLaTeX.",
-    author        = "Khaled Hosny",
-    copyright     = "Khaled Hosny",
+    author        = "Khaled Hosny, Philipp Gesang",
+    copyright     = "Khaled Hosny, Philipp Gesang",
     license       = "LPPL"
 }
 
@@ -6663,76 +6653,22 @@ fontspec.log     = log
 fontspec.warning = warn
 fontspec.error   = err
 
-function fontspec.sprint (...) tex.sprint(luatexbase.catcodetables['latex-package'], ...) end
+function fontspec.sprint (...)
+    tex.sprint(luatexbase.catcodetables['latex-package'], ...)
+end
 %    \end{macrocode}
-% The following functions check for exsitence of certain script, language or
+%
+% The following lines check for existence of a certain script, language or
 % feature in a given font.
-%    \begin{macrocode}
-local function check_script(id, script)
-    local s = string.lower(script)
-    if id and id > 0 then
-        local otfdata = fonts.identifiers[id].shared.otfdata
-        if otfdata then
-            local features = otfdata.luatex.features
-            for i,_ in pairs(features) do
-                for j,_ in pairs(features[i]) do
-                    if features[i][j][s] then
-                        fontspec.log("script '%s' exists in font '%s'",
-                                      script, fonts.identifiers[id].fullname)
-                        return true
-                    end
-                end
-            end
-        end
-    end
-end
-%    \end{macrocode}
 %
 %    \begin{macrocode}
-local function check_language(id, language, script)
-    local s = string.lower(script)
-    local l = string.lower(language)
-    if id and id > 0 then
-        local otfdata = fonts.identifiers[id].shared.otfdata
-        if otfdata then
-            local features = otfdata.luatex.features
-            for i,_ in pairs(features) do
-                for j,_ in pairs(features[i]) do
-                    if features[i][j][s] and features[i][j][s][l] then
-                        fontspec.log("language '%s' for script '%s' exists in font '%s'",
-                                      language, script, fonts.identifiers[id].fullname)
-                        return true
-                    end
-                end
-            end
-        end
-    end
-end
+local check_script   = luaotfload.aux.provides_script
+local check_language = luaotfload.aux.provides_language
+local check_feature  = luaotfload.aux.provides_feature
 %    \end{macrocode}
 %
-%    \begin{macrocode}
-local function check_feature(id, feature, language, script)
-    local s = string.lower(script)
-    local l = string.lower(language)
-    local f = string.lower(feature:gsub("^[+-]", ""):gsub("=.*$", ""))
-    if id and id > 0 then
-        local otfdata = fonts.identifiers[id].shared.otfdata
-        if otfdata then
-            local features = otfdata.luatex.features
-            for i,_ in pairs(features) do
-                if features[i][f] and features[i][f][s] then
-                    if features[i][f][s][l] == true then
-                        fontspec.log("feature '%s' for language '%s' and script '%s' exists in font '%s'",
-                                      feature, language, script, fonts.identifiers[id].fullname)
-                        return true
-                    end
-                end
-            end
-        end
-    end
-end
-%    \end{macrocode}
 % The following are the function that get called from \TeX\ end.
+%
 %    \begin{macrocode}
 local function tempswatrue()  fontspec.sprint([[\@tempswatrue]])  end
 local function tempswafalse() fontspec.sprint([[\@tempswafalse]]) end
@@ -6750,7 +6686,7 @@ end
 %
 %    \begin{macrocode}
 function fontspec.check_ot_lang(fnt, lang, script)
-    if check_language(font.id(fnt), lang, script) then
+    if check_language(font.id(fnt), script, lang) then
         tempswatrue()
     else
         tempswafalse()
@@ -6766,7 +6702,7 @@ function fontspec.check_ot_feat(fnt, feat, lang, script)
             return
         end
     end
-    if check_feature(font.id(fnt), feat, lang, script) then
+    if check_feature(font.id(fnt), script, lang, feat) then
         tempswatrue()
     else
         tempswafalse()
@@ -6775,49 +6711,16 @@ end
 %    \end{macrocode}
 %
 %    \begin{macrocode}
+local get_math_dimension = luaotfload.aux.get_math_dimension
 function fontspec.mathfontdimen(fnt, str)
-    local mathdimens = fonts.identifiers[font.id(fnt)].MathConstants
+    local mathdimens = get_math_dimension(fnt, str)
     if mathdimens then
-        local m = mathdimens[str]
-        if m then
-            fontspec.sprint(mathdimens[str])
-            fontspec.sprint("sp")
-        else
-            fontspec.sprint("0pt")
-        end
+        fontspec.sprint(mathdimens)
+        fontspec.sprint("sp")
     else
         fontspec.sprint("0pt")
     end
 end
-%    \end{macrocode}
-%
-% Here we patch fonts tfm table to emulate \XeTeX's \cs{fontdimen8},
-% which stores the caps-height of the font. (Cf.\ \cs{fontdimen5} which
-% stores the x-height.)
-%
-% Falls back to measuring the glyph if the font doesn't contain the
-% necessary information.
-% This needs to be extended for fonts that don't contain an `X'.
-%
-%    \begin{macrocode}
-local function set_capheight(fontdata)
-    local capheight
-    local units     = fontdata.units
-    local size      = fontdata.size
-    local otfdata   = fontdata.shared.otfdata
-
-    if otfdata.pfminfo.os2_capheight > 0 then
-        capheight = otfdata.pfminfo.os2_capheight / units * size
-    else
-        if fontdata.characters[string.byte("X")] then
-            capheight = fontdata.characters[string.byte("X")].height
-        else
-            capheight = otfdata.metadata.ascent / units * size
-        end
-    end
-    fontdata.parameters[8] = capheight
-end
-luatexbase.add_to_callback("luaotfload.patch_font", set_capheight, "fontspec.set_capheight")
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -6831,14 +6734,12 @@ luatexbase.add_to_callback("luaotfload.patch_font", set_capheight, "fontspec.set
 %<*patches>
 %    \end{macrocode}
 %
-%    \begin{macrocode}
-\ExplSyntaxOn
-%    \end{macrocode}
-%
 % \subsection{Unicode footnote symbols}
 %    \begin{macrocode}
 \RequirePackage{fixltx2e}[2006/03/24]
+\ExplSyntaxOn
 %    \end{macrocode}
+%
 % \subsection{Emph}
 %
 % \begin{macro}{\em}
@@ -7102,8 +7003,8 @@ The basic command is
 {\centering \verb|\fontspec[font features]{font display name}|.\par}
 
 The default, sans serif, and typewriter fonts may be set with the
-\verb|\setmainfont|, \verb|\setsansfont| and \verb|\setmonofont|
-commands, respectively, as shown in the preamble. They take the
+commands \verb|\setmainfont|, \verb|\setsansfont| and \verb|\setmonofont|,
+respectively, as shown in the preamble. They take the
 same syntax as the \verb|\fontspec| package. All expected font
 shapes are available:
 
@@ -7138,7 +7039,7 @@ information.
 \usepackage{fontspec,fancyvrb,geometry,graphicx,calc,multicol}
 \geometry{margin=2cm,a4paper}
 \setmainfont[Ligatures=TeX]{TeX Gyre Pagella}
-\setmonofont{Consolas}
+\setmonofont{Inconsolata}
 
 \newcommand\meta[1]{$\langle$\emph{#1}$\rangle$}
 
