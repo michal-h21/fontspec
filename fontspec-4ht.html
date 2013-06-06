@@ -10,7 +10,7 @@
 <meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)" /> 
 <!-- xhtml,charset=utf-8 --> 
 <meta name="src" content="fontspec-4ht.tex" /> 
-<meta name="date" content="2013-05-14 15:51:00" /> 
+<meta name="date" content="2013-06-06 14:23:00" /> 
 <link rel="stylesheet" type="text/css" href="fontspec-4ht.css" /> 
 </head><body 
 >
@@ -22,18 +22,18 @@
 <div class="author" ><span 
 class="ec-lmr-12">Michal Hoftich</span></div><br />
 <div class="date" ><span 
-class="ec-lmr-12">May 14, 2013</span></div>
+class="ec-lmr-12">June 6, 2013</span></div>
 </div>   
 <h3 class="sectionHead"><span class="titlemark">1   </span> <a 
  id="x1-10001"></a>introduction</h3>
-<!--l. 30--><p class="noindent" >This is sample document which uses <span 
+<!--l. 31--><p class="noindent" >This is sample document which uses <span 
 class="ec-lmtt-10">fontspec</span>, converted to <span class="obeylines-h"><span class="verb"><span 
 class="ec-lmtt-10">html</span></span></span> usint <span class="TEX">T<span 
 class="E">E</span>X</span>4ht.
 This document can be converted either with <span class="obeylines-h"><span class="verb"><span 
 class="ec-lmtt-10">htxelatex</span></span></span> or <span class="obeylines-h"><span class="verb"><span 
 class="ec-lmtt-10">htlualatex</span></span></span>.
-</p><!--l. 34--><p class="indent" >   Normally, <span class="TEX">T<span 
+</p><!--l. 35--><p class="indent" >   Normally, <span class="TEX">T<span 
 class="E">E</span>X</span>4ht doesn&#x2019;t support opentype fonts used with <span class="obeylines-h"><span class="verb"><span 
 class="ec-lmtt-10">fontspec</span></span></span> because it
 depends on <span class="obeylines-h"><span class="verb"><span 
@@ -44,16 +44,16 @@ class="ec-lmtt-10">fontspec</span></span></span> to not load opentype fonts. Bet
 opentype fonts to <span class="TEX">T<span 
 class="E">E</span>X</span>4ht binary, but it probably won&#x2019;t happend in near future, so I
 tried if this way is possible.
-</p><!--l. 42--><p class="indent" >   Because we suppress font processing, we must take care of input and output
+</p><!--l. 43--><p class="indent" >   Because we suppress font processing, we must take care of input and output
 encoding. For utf8 support, we load conﬁguration ﬁles depending on script attributes
 of font declaring commands. Default loaded script is <span 
 class="ec-lmri-10">Latin</span>, which should support all
 diacritics used in languages with latin script:
-</p><!--l. 49--><p class="indent" >   Příliš žluťoučký kůň úpěl ďábelské ódy
-</p><!--l. 52--><p class="indent" >   Other supported script is <span 
+</p><!--l. 50--><p class="indent" >   Příliš žluťoučký kůň úpěl ďábelské ódy
+</p><!--l. 53--><p class="indent" >   Other supported script is <span 
 class="ec-lmri-10">Greek</span>:
-</p><!--l. 55--><p class="indent" >   ελληνική γλώσσα
-</p><!--l. 57--><p class="indent" >   All fonts with diﬀerent scripts must be deﬁned in preamble
+</p><!--l. 56--><p class="indent" >   ελληνική γλώσσα
+</p><!--l. 58--><p class="indent" >   All fonts with diﬀerent scripts must be deﬁned in preamble
 
 </p>   
 <div class="verbatim" id="verbatim-1">
@@ -64,11 +64,11 @@ class="ec-lmri-10">Greek</span>:
  <br />\greekfont
  <br />ελληνική γλώσσα
 </div>
-<!--l. 66--><p class="nopar" >
+<!--l. 67--><p class="nopar" >
 </p>   
 <h3 class="sectionHead"><span class="titlemark">2   </span> <a 
  id="x1-20002"></a>Instalation</h3>
-<!--l. 69--><p class="noindent" >This is just proof of concept now, so it may not be good idea to install this
+<!--l. 70--><p class="noindent" >This is just proof of concept now, so it may not be good idea to install this
 package somewhere to your local texmf tree. Just run these commands in some
 directory
 
@@ -78,12 +78,12 @@ git clone git@github.com:michal-h21/fontspec.git
  <br />cd fontspec
  <br />pdftex fontspec.dtx
 </div>
-<!--l. 77--><p class="nopar" >
-</p><!--l. 79--><p class="noindent" >
+<!--l. 78--><p class="nopar" >
+</p><!--l. 80--><p class="noindent" >
 </p>   
 <h3 class="sectionHead"><span class="titlemark">3   </span> <a 
  id="x1-30003"></a>Unicode support</h3>
-<!--l. 81--><p class="noindent" >For new script support, go to page <span class="obeylines-h"><span class="verb"><span 
+<!--l. 82--><p class="noindent" >For new script support, go to page <span class="obeylines-h"><span class="verb"><span 
 class="ec-lmtt-10">http://www.utf8-chartable.de/unicode-utf8-table.pl</span></span></span>,
 select unicode block with the script in interest, select decimal display format for utf8
 encoding and copy the resulting table to some ﬁle. Then run included script
@@ -94,12 +94,46 @@ class="ec-lmtt-10">f4ht-utftable.lua</span></span></span>:
 <div class="verbatim" id="verbatim-3">
 texlua f4ht-utftable.lua &#x003C; filewithtable &#x003E; utf-scriptname-4ht.tex
 </div>
-<!--l. 90--><p class="nopar" >
-</p><!--l. 92--><p class="indent" >   See ﬁle <span class="obeylines-h"><span class="verb"><span 
+<!--l. 91--><p class="nopar" >
+</p><!--l. 93--><p class="indent" >   There is command line switch <span class="obeylines-h"><span class="verb"><span 
+class="ec-lmtt-10">e</span></span></span> for <span class="obeylines-h"><span class="verb"><span 
+class="ec-lmtt-10">f4ht-utftable.lua</span></span></span>, which outputs <span class="obeylines-h"><span class="verb"><span 
+class="ec-lmtt-10">html</span></span></span>
+entities instead of direct <span class="obeylines-h"><span class="verb"><span 
+class="ec-lmtt-10">utf-8</span></span></span> values. In the case of complex scripts, like Devanagari
+or other Asian scripts, this option is better.
+</p><!--l. 98--><p class="indent" >   See ﬁle <span class="obeylines-h"><span class="verb"><span 
 class="ec-lmtt-10">utf-latin-4ht.tsv</span></span></span> for example of input ﬁle and ﬁle <span class="obeylines-h"><span class="verb"><span 
 class="ec-lmtt-10">utf-latin-4ht.tex</span></span></span>
 for resulting output ﬁle.
+</p><!--l. 101--><p class="noindent" >
 </p>   
+<h3 class="sectionHead"><span class="titlemark">4   </span> <a 
+ id="x1-40004"></a>Issues</h3>
+<ul class="itemize1">     
+<li class="itemize">Accented  characters  doesn&#x2019;t  show  in  italics  or  other  emphatized  text
+blocks. This is because of behaviour of <span class="obeylines-h"><span class="verb"><span 
+class="ec-lmtt-10">tex4ht</span></span></span> application, which insert
+<span class="obeylines-h"><span class="verb"><span 
+class="ec-lmtt-10">&#x003C;span</span><span 
+class="ec-lmtt-10"> class=&#x0022;fontclassname&#x0022;&#x003E;</span></span></span> around each byte higher than 128 in
+emphatized texts.
+<!--l. 110--><p class="noindent" >Solution:  generate  script  table  with  <span class="obeylines-h"><span class="verb"><span 
+class="ec-lmtt-10">texlua</span><span 
+class="ec-lmtt-10"> f4ht-utftable</span><span 
+class="ec-lmtt-10"> -e</span></span></span>,  or
+use <span class="obeylines-h"><span class="verb"><span 
+class="ec-lmtt-10">htlatex</span><span 
+class="ec-lmtt-10"> filename</span><span 
+class="ec-lmtt-10"> &#x0022;...,NoFonts,...&#x0022;</span><span 
+class="ec-lmtt-10"> &#x0022;...&#x0022;</span></span></span>. You would need to
+provide conﬁgurations and css code in the custom conﬁg ﬁle in latter case.
+</p>     
+</li>
+<li class="itemize">There are null characters in the output ﬁle sometimes. I don&#x2019;t know the
+reason, you need to process the output ﬁle with sed, or some similar tool
+and discard the null characters.
+</li></ul>   
  
 </body></html> 
 
