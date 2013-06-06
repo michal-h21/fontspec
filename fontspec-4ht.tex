@@ -15,8 +15,9 @@
 %\usepackage[utf8]{luainputenc}
 \usepackage[]{fontspec}
 %\usepackage{url}
-\setmainfont{Latin Modern Roman}
-\newfontfamily\greekfont[Script=Greek]{Gentium}
+\setmainfont[Script=Greek]{Latin Modern Roman}
+%\newfontfamily\greekfont[Script=Greek]{Gentium}
+\newcommand\greekfont{}
 % Unicode math still doesn't work
 %\usepackage{unicode-math}
 %\setmathfont{Latin Modern Math}
@@ -89,7 +90,30 @@ Some text
 texlua f4ht-utftable.lua < filewithtable > utf-scriptname-4ht.tex
 \end{verbatim} 
 
+There is command line switch \verb|e| for \verb|f4ht-utftable.lua|, 
+which outputs \verb|html| entities instead of direct \verb|utf-8| values. 
+In the case of complex scripts, like Devanagari or other Asian scripts, 
+this option is better. 
+
 See file \verb|utf-latin-4ht.tsv| for example of input file and 
 file \verb|utf-latin-4ht.tex| for resulting output file.
 
+\section{Issues}
+
+\begin{itemize}
+	\item Accented characters doesn't show in italics 
+		or other emphatized text blocks. 
+		This is because of behaviour of \verb|tex4ht| application, 
+		which insert \verb|<span class="fontclassname">| 
+		around each byte higher than 128 in emphatized texts.
+
+		Solution: generate script table with \verb|texlua f4ht-utftable -e|, 
+		or use \verb|htlatex filename "...,NoFonts,..." "..."|. 
+		You would need to provide configurations and css code in the 
+		custom config file in latter case.
+	\item There are null characters in the output file sometimes. 
+		I don't know the reason, you need to process the output file with sed, 
+		or some similar tool and discard the null characters.
+
+\end{itemize} 
 \end{document}
