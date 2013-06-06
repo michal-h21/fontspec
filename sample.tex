@@ -1,0 +1,99 @@
+% fontspec sample for tex4ht
+% compile with:
+% htxelatex sample "xhtml, charset=utf-8" " -cunihtf -utf8"
+% or
+% htlualatex sample "xhtml, charset=utf-8" " -cunihtf -utf8"
+% you maybe will need to create that script, see 
+% http://tex.stackexchange.com/a/27531/2891
+% you can also uncomment line \usepackage[...]{tex4ht}
+% and run commands: 
+% dvilualatex sample
+% tex4ht -cunihtf -utf8 sample
+% t4ht sample
+\documentclass{article}
+\usepackage[xhtml, charset=utf-8,mathml,]{tex4ht}
+%\usepackage[utf8]{luainputenc}
+\usepackage[]{fontspec}
+%\usepackage{url}
+\setmainfont{Latin Modern Roman}
+\newfontfamily\greekfont[Script=Greek]{Gentium}
+% Unicode math still doesn't work
+%\usepackage{unicode-math}
+%\setmathfont{Latin Modern Math}
+
+\begin{document}
+%	\def\verb|#1|{#1}
+	\title{TeX4ht and fontspec sample}
+	\author{Michal Hoftich}
+	\maketitle
+	\section{introduction}
+
+	This is sample document which uses \texttt{fontspec}, converted to 
+	\verb|html| usint \TeX 4ht. This document can be converted either with 
+	\verb|htxelatex| or \verb|htlualatex|. 
+
+	Normally, \TeX 4ht doesn't support opentype fonts used with 
+	\verb|fontspec| because it depends on \verb|tfm| files which are 
+	used with traditional \TeX fonts.This package tries to patch 
+	\verb|fontspec| to not load opentype fonts. 
+	Better way would be to add support for opentype fonts to 
+	\TeX 4ht binary, but it probably won't happend in near future, 
+	so I tried if this way is possible.
+
+	Because we suppress font processing, we must take care of input 
+	and output encoding. For utf8 support, we load configuration files 
+	depending on script attributes of font declaring commands. 
+	Default loaded script is \emph{Latin}, which should support all diacritics 
+	used in languages with latin script:
+	%\fontspec[Script=Latin,Language=Czech]{TeX Gyre Termes}
+
+	Příliš žluťoučký kůň úpěl ďábelské ódy
+	%\fontspec[Script=Greek]{Linux Libertine O}
+
+	Other supported script is \emph{Greek}:
+
+	\greekfont
+	ελληνική γλώσσα
+
+	All fonts with different scripts must be defined in preamble
+
+%	\begin{verbatim}
+%\newfontfamily\greekfont[Script=Greek]{Gentium}
+%\begin{document}
+%Some text
+%...
+%\greekfont
+%	ελληνική γλώσσα
+%	\end{verbatim} 
+	\section{Instalation}
+
+	This is just proof of concept now, so it may not be good idea 
+	to install this package somewhere to your local texmf tree. 
+	Just run these commands in some directory
+
+	příliš \verb|zluty| sakra.
+
+%	\begin{verbatim}
+%		git clone git@github.com:michal-h21/fontspec.git
+%		cd fontspec
+%		pdftex fontspec.dtx
+%	\end{verbatim} 
+	
+	\section{Unicode support}
+
+	For new script support, go to page 
+	\verb|http://www.utf8-chartable.de/unicode-utf8-table.pl|, 
+	select unicode block with the script in interest, 
+	select decimal display format for utf8 encoding and copy 
+	the resulting table to some file. 
+	Then run included script \verb|f4ht-utftable.lua|:
+
+%\begin{verbatim}
+%texlua f4ht-utftable.lua < filewithtable > utf-scriptname-4ht.tex
+%\end{verbatim} 
+
+See file \verb|utf-latin-4ht.tsv| for example of input file and 
+file \verb|utf-latin-4ht.tex| for resulting output file.
+
+WTF?
+end{document}
